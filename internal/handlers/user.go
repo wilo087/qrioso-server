@@ -9,7 +9,7 @@ import (
 type UserHandler struct {
 }
 
-func NewUser() *UserHandler {
+func NewUserHandler() *UserHandler {
 	return &UserHandler{}
 }
 
