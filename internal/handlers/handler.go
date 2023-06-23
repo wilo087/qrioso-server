@@ -16,6 +16,7 @@ func NewDefaultHandler() *DefaultHandler {
 
 func StartApiRoutes(d *DefaultHandler) *gin.Engine {
 	r := gin.Default()
+	v1 := r.Group("/v1")
 
 	r.GET("/health", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{"status": "ok"})
@@ -25,7 +26,8 @@ func StartApiRoutes(d *DefaultHandler) *gin.Engine {
 	// 	c.JSON(200, gin.H{"status": "ok"})
 	// })
 
-	r.GET("/users", d.user.Get)
+	v1.GET("/users", d.user.Get)
+	v1.POST("/users", d.user.Create)
 
 	return r
 }
