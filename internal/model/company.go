@@ -10,7 +10,7 @@ import (
 type Company struct {
 	BaseUUID
 	Name    string `gorm:"size:255"`
-	Address int
+	Address string `gorm:"size:255"`
 	Website string `gorm:"size:255"`
 	Status  CompanyStatus
 	Users   []User          `gorm:"many2many:user_on_companies"`
@@ -21,8 +21,8 @@ type Company struct {
 type UserOnCompany struct {
 	CompanyID uuid.UUID `gorm:"primaryKey"`
 	UserID    uuid.UUID `gorm:"primaryKey"`
+	IsAdmin   bool      `gorm:"default:false"`
 	Status    UserOnCompanyStatus
-	IsAdmin   bool
 	BaseModelSoftDelete
 }
 

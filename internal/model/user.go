@@ -10,9 +10,14 @@ import (
 
 type User struct {
 	BaseUUID
-	FirstName      string         `gorm:"column:first_name"`
-	LastName       string         `gorm:"column:last_name"`
-	Email          string         `gorm:"unique" json:"email"`
+	FirstName    string `gorm:"column:first_name"`
+	LastName     string `gorm:"column:last_name"`
+	Emails       []UserEmail
+	Gender       string     `gorm:"size:1" json:"gender"`
+	Birthdate    *time.Time `json:"birthdate"`
+	DocumentType *string    `gorm:"size:1" validate:"omitempty" json:"documentType"`
+	Document     *string    `gorm:"size:16" validate:"omitempty" json:"document"`
+
 	Picture        *string        `gorm:"default:null" json:"picture"`
 	Role           UserRole       `gorm:"default:public" json:"role"`
 	Password       sql.NullString `gorm:"default:null" json:"password"`
