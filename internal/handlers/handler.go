@@ -27,7 +27,7 @@ func StartApiRoutes(d *DefaultHandler) *gin.Engine {
 	// 	c.JSON(200, gin.H{"status": "ok"})
 	// })
 
-	v1.GET("/users", d.user.Get)
+	v1.GET("/users/:id", d.user.GetUserByID)
 	v1.POST("/users", d.user.Create)
 
 	return r
