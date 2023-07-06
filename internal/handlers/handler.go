@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/wilo0087/qrioso-server/internal/service"
 )
 
 type DefaultHandler struct {
@@ -11,7 +12,7 @@ type DefaultHandler struct {
 }
 
 func NewDefaultHandler() *DefaultHandler {
-	return &DefaultHandler{user: NewUserHandler()}
+	return &DefaultHandler{user: NewUserHandler(&service.UserService{})}
 }
 
 func StartApiRoutes(d *DefaultHandler) *gin.Engine {
