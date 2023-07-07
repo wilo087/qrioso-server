@@ -17,10 +17,6 @@ func NewUserHandler(u *service.UserService) *UserHandler {
 	return &UserHandler{userService: u}
 }
 
-func (u *UserHandler) GetUser(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{"status": "ok"})
-}
-
 func (u *UserHandler) GetUserByID(c *gin.Context) {
 	userID := c.Param("id")
 
@@ -32,6 +28,10 @@ func (u *UserHandler) GetUserByID(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{"status": "OK", "data": user})
+}
+
+func (u *UserHandler) GetUser(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{"status": "ok"})
 }
 
 func (u *UserHandler) Create(c *gin.Context) {
