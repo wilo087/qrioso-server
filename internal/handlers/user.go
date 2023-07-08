@@ -17,7 +17,20 @@ func NewUserHandler(u *service.UserService) *UserHandler {
 	return &UserHandler{userService: u}
 }
 
-func (u *UserHandler) Get(c *gin.Context) {
+func (u *UserHandler) GetUserByID(c *gin.Context) {
+	userID := c.Param("id")
+
+	// Call service method to get user by id
+	user, err := u.userService.GetUserByID(userID)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error(), "status": "404"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"status": "OK", "data": user})
+}
+
+func (u *UserHandler) GetUser(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"status": "ok"})
 }
 

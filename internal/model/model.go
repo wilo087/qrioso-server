@@ -2,11 +2,14 @@ package model
 
 import (
 	"time"
+
+	"github.com/google/uuid"
+	"gorm.io/gorm"
 )
 
 // BaseID defines the common columns that all db structs should hold.
-type BaseID struct {
-	ID int `gorm:"primary_key;index;not null"`
+type BaseUUID struct {
+	UUID uuid.UUID `gorm:"type:uuid;primaryKey"`
 }
 
 // BaseModel defines the common columns for all db models
@@ -19,5 +22,5 @@ type BaseModel struct {
 // This struct also defines the fields for GORM triggers to detect the entity should soft delete
 type BaseModelSoftDelete struct {
 	BaseModel
-	DeletedAt *time.Time `sql:"index" json:"deletedAt"`
+	DeletedAt gorm.DeletedAt `gorm:"index"`
 }

@@ -3,36 +3,45 @@ package model
 import (
 	"database/sql"
 	"time"
+
+	"github.com/google/uuid"
+	"gorm.io/gorm"
 )
 
 type User struct {
-	ID               uint64         `gorm:"primary_key;index;not null" json:"id"`
-	FirstName        string         `gorm:"column:first_name"`
-	LastName         string         `gorm:"column:last_name"`
-	Email            string         `gorm:"unique" json:"email"`
-	Picture          *string        `gorm:"default:null" json:"picture"`
-	Role             Role           `gorm:"default:public" json:"role"`
-	Password         sql.NullString `gorm:"default:null" json:"password"`
-	Companies        []Company      `gorm:"many2many:users_on_companies" json:"companies"`
-	SocialNetworks   []SocialNetwork
-	UsersOnCompanies []UsersOnCompany `gorm:"foreignKey:UserID"`
-	CreatedAt        time.Time        `gorm:"default:current_timestamp;column:created_at"`
-	UpdatedAt        time.Time        `gorm:"autoUpdateTime;column:updated_at"`
+	BaseUUID
+	FirstName    string `gorm:"column:first_name"`
+	LastName     string `gorm:"column:last_name"`
+	Emails       []UserEmail
+	Gender       string     `gorm:"size:1" json:"gender"`
+	Birthdate    *time.Time `json:"birthdate"`
+	DocumentType *string    `gorm:"size:1" validate:"omitempty" json:"documentType"`
+	Document     *string    `gorm:"size:16" validate:"omitempty" json:"document"`
+
+	Picture        *string        `gorm:"default:null" json:"picture"`
+	Role           UserRole       `gorm:"default:public" json:"role"`
+	Password       sql.NullString `gorm:"default:null" json:"password"`
+	Companies      []Company      `gorm:"many2many:user_on_companies" json:"companies"`
+	SocialNetworks []SocialNetwork
+	BaseModelSoftDelete
 }
 
-type UsersOnCompany struct {
-	Company   Company `gorm:"foreignKey:CompanyID"`
-	CompanyID uint64  `gorm:"column:company_id"`
-	User      User    `gorm:"foreignKey:UserID"`
-	UserID    uint64  `gorm:"column:user_id"`
+type UserEmail struct {
+	UUID      uint      `gorm:"primaryKey"`
+	UserID    uuid.UUID `gorm:"type:uuid"`
+	Email     string    `gorm:"size:255;unique"`
+	Main      bool
+	CreatedAt time.Time
+	UpdatedAt time.Time
+	DeletedAt gorm.DeletedAt `gorm:"index"`
 }
 
-type Role string
+type UserRole string
 
 const (
-	RoleAdmin    Role = "admin"
-	RoleRegisted Role = "registed"
-	RolePublic   Role = "public"
+	UserRoleAdmin    UserRole = "admin"
+	UserRoleRegisted UserRole = "registed"
+	UserRolePublic   UserRole = "public"
 )
 
 // func (u *User) BeforeCreate(tx *gorm.DB) (err error) {
