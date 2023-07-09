@@ -18,9 +18,7 @@ func NewUserRoutes(db *gorm.DB) *UserRoutes {
 	userService := service.NewUserService(userRepository)
 	userHandler := handlers.NewUserHandler(userService)
 
-	return &UserRoutes{
-		userHandler: userHandler,
-	}
+	return &UserRoutes{userHandler: userHandler}
 }
 
 func RegisterUserRoutes(ur *UserRoutes, r *gin.Engine) {

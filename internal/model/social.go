@@ -1,9 +1,13 @@
 package model
 
-import "time"
+import (
+	"time"
+
+	"github.com/google/uuid"
+)
 
 type SocialNetwork struct {
-	ID        uint64    `gorm:"primaryKey;autoIncrement"`
+	UUID      uuid.UUID `gorm:"type:uuid;primaryKey"`
 	Name      string    `gorm:"not null"`
 	URL       string    `gorm:"not null"`
 	User      User      `gorm:"foreignKey:UserID"`

@@ -12,8 +12,9 @@ import (
 	"github.com/wilo0087/qrioso-server/routes"
 )
 
-func main() {
+const defaultPort = ":3000"
 
+func main() {
 	log.SetFlags(log.Flags() | log.Lshortfile)
 
 	isLocalEnvironment := os.Getenv("_LAMBDA_SERVER_PORT") == "" && os.Getenv("_AWS_LAMBDA_RUNTIME_API") == ""
@@ -21,16 +22,12 @@ func main() {
 	r := gin.Default()
 	db := repository.NewPostgresConnection()
 
-	//  := routes.NewUserRoutes(db)
 	routes.RegisterUserRoutes(routes.NewUserRoutes(db), r)
-	// handlers := RegisterUserRoutes
 
 	if !isLocalEnvironment {
 		lambda.Start(ginadapter.New(r).ProxyWithContext)
 		return
 	}
 
-	// server.NewServer()
-	http.ListenAndServe(":3000", r)
-
+	http.ListenAndServe(defaultPort, r)
 }
