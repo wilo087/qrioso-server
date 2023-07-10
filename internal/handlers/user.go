@@ -1,10 +1,12 @@
 package handlers
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
 	"github.com/wilo0087/qrioso-server/internal/model/dto"
 	"github.com/wilo0087/qrioso-server/internal/service"
 )
@@ -18,7 +20,11 @@ func NewUserHandler(u *service.UserService) *UserHandler {
 }
 
 func (u *UserHandler) GetUserByID(c *gin.Context) {
-	userID := c.Param("id")
+	userID, err := uuid.Parse(c.Param("id"))
+	if err != nil {
+		fmt.Println("Error al analizar el UUID:", err)
+		return
+	}
 
 	// Call service method to get user by id
 	user, err := u.userService.GetUserByID(userID)

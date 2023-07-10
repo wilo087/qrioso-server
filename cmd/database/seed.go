@@ -14,7 +14,6 @@ func SeedCompanyAndUsers(db *gorm.DB) error {
 	doc := "224-0011982-7"
 	docType := model.UserDocTypeC
 	birthdate := time.Date(1938, time.February, 3, 0, 0, 0, 0, time.UTC)
-	// companyID1, _ := uuid.Parse("725d1ee3-823f-4d01-8b36-c15711810e79")
 
 	users := []model.User{
 		{
