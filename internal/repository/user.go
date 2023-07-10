@@ -5,6 +5,7 @@ import (
 	"github.com/wilo0087/qrioso-server/internal/model"
 	"github.com/wilo0087/qrioso-server/internal/model/dto"
 	"gorm.io/gorm"
+	"gorm.io/gorm/clause"
 )
 
 type UserRepository struct {
@@ -18,9 +19,7 @@ func NewUserRepository(db *gorm.DB) *UserRepository {
 func (ur *UserRepository) GetUserByID(userID uuid.UUID) (*dto.UserResponse, error) {
 	user := &model.User{}
 	err := ur.db.Select("id, first_name, last_name, gender, birthdate, document_type, document, picture, role, created_at, updated_at").
-		Preload("Emails").
-		Preload("Companies").
-		Preload("SocialNetworks").
+		Preload(clause.Associations).
 		Where("id = ?", userID).
 		First(user).Error
 

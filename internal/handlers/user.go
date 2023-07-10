@@ -26,7 +26,6 @@ func (u *UserHandler) GetUserByID(c *gin.Context) {
 		return
 	}
 
-	// Call service method to get user by id
 	user, err := u.userService.GetUserByID(userID)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error(), "status": "404"})
