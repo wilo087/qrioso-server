@@ -20,7 +20,7 @@ type UserResponse struct {
 	ID             uuid.UUID              `json:"id"`
 	FirstName      string                 `json:"first_name"`
 	LastName       string                 `json:"last_name"`
-	Emails         []model.UserEmail      `json:"emails"`
+	Emails         []UserEmailResponse    `json:"emails"`
 	Gender         string                 `json:"gender"`
 	Birthdate      *time.Time             `json:"birthdate"`
 	DocumentType   *model.UserDocType     `json:"document_type"`
@@ -31,4 +31,12 @@ type UserResponse struct {
 	SocialNetworks []*model.SocialNetwork `json:"social_networks"`
 	CreatedAt      time.Time              `json:"created_at"`
 	UpdatedAt      time.Time              `json:"updated_at"`
+}
+
+type UserEmailResponse struct {
+	Email     string    `json:"email"`
+	Main      bool      `json:"main"`
+	UserID    uuid.UUID `json:"user_id"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
 }
