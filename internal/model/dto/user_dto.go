@@ -7,7 +7,7 @@ import (
 	"github.com/wilo0087/qrioso-server/internal/model"
 )
 
-type CreateUserDTO struct {
+type CreateUser struct {
 	FirstName string `json:"firstName"`
 	LastName  string `json:"lastName"`
 	Email     string `json:"email"`

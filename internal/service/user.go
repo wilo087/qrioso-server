@@ -22,3 +22,12 @@ func (u *UserService) GetUserByID(id uuid.UUID) (*dto.UserResponse, error) {
 
 	return user, nil
 }
+
+func (u *UserService) CreateUser(user *dto.CreateUser) (*dto.UserResponse, error) {
+	createdUser, err := u.userRepository.CreateUser(user)
+	if err != nil {
+		return nil, err
+	}
+
+	return createdUser, nil
+}

@@ -10,7 +10,7 @@ import (
 	"github.com/wilo0087/qrioso-server/internal/model"
 )
 
-func SeedCompanyAndUsers(db *gorm.DB) error {
+func DefaultCompanyAndUser(db *gorm.DB) error {
 	doc := "224-0011982-7"
 	docType := model.UserDocTypeC
 	birthdate := time.Date(1938, time.February, 3, 0, 0, 0, 0, time.UTC)

@@ -35,19 +35,21 @@ func (u *UserHandler) GetUserByID(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"status": "OK", "data": user})
 }
 
-func (u *UserHandler) GetUser(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{"status": "ok"})
-}
+func (u *UserHandler) CreateUser(c *gin.Context) {
+	var user dto.CreateUser
+	err := c.ShouldBind(&user)
 
-func (u *UserHandler) Create(c *gin.Context) {
-	var user dto.CreateUserDTO
-
-	err := c.ShouldBindJSON(&user)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error(), "status": "ERROR"})
+		return
+	}
+
+	res, err := u.userService.CreateUser(&user)
+
+	if err != nil {
+		c.JSON(http.StatusOK, gin.H{"status": "OK", "data": res})
 		return
 	}
 
 	log.Println(user)
-	c.JSON(http.StatusOK, gin.H{"status": "OK"})
+	c.JSON(http.StatusOK, gin.H{"status": "OK", "data": res})
 }

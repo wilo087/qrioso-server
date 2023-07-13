@@ -22,8 +22,11 @@ func NewPostgresConnection() *gorm.DB {
 		&model.SocialNetwork{},
 	)
 
-	// Make many to many relationship
+	// Many to many relationship with custom fields
 	db.SetupJoinTable(&model.User{}, "Companies", &model.UserOnCompany{})
-	database.SeedCompanyAndUsers(db)
+
+	// Create default company and user
+	database.DefaultCompanyAndUser(db)
+
 	return db
 }

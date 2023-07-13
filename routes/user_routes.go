@@ -24,4 +24,5 @@ func NewUserRoutes(db *gorm.DB) *UserRoutes {
 func RegisterUserRoutes(ur *UserRoutes, r *gin.Engine) {
 	userRoutes := r.Group("/v1/users")
 	userRoutes.GET("/:id", ur.userHandler.GetUserByID)
+	userRoutes.POST("/", ur.userHandler.CreateUser)
 }

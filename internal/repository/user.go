@@ -32,3 +32,19 @@ func (ur *UserRepository) GetUserByID(userID uuid.UUID) (*dto.UserResponse, erro
 	copier.Copy(&res, &user)
 	return &res, nil
 }
+
+func (ur *UserRepository) CreateUser(u *dto.CreateUser) (*dto.UserResponse, error) {
+	user := model.User{}
+	copier.Copy(&user, &u)
+
+	err := ur.db.Create(&user).Error
+
+	if err != nil {
+		return nil, err
+	}
+
+	res := dto.UserResponse{}
+	copier.Copy(&res, &user)
+
+	return &res, nil
+}
