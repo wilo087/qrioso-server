@@ -7,11 +7,11 @@ import (
 	"github.com/wilo0087/qrioso-server/internal/model"
 )
 
-type CreateUser struct {
-	FirstName string `json:"firstName"`
-	LastName  string `json:"lastName"`
-	Email     string `json:"email"`
-	Picture   string `json:"picture"`
+type UserRequest struct {
+	FirstName string `json:"first_name" validate:"required"`
+	LastName  string `json:"last_name" validate:"required"`
+	Email     string `json:"emails" validate:"required"`
+	Picture   string `json:"picture" validate:"required"`
 	Role      string `json:"role"`
 	Password  string `json:"password"`
 }
@@ -31,6 +31,11 @@ type UserResponse struct {
 	SocialNetworks []*model.SocialNetwork `json:"social_networks"`
 	CreatedAt      time.Time              `json:"created_at"`
 	UpdatedAt      time.Time              `json:"updated_at"`
+}
+
+type UserUpdateEmailrequest struct {
+	Email string `json:"email"`
+	Main  bool   `json:"main"`
 }
 
 type UserEmailResponse struct {

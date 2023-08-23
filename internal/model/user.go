@@ -13,7 +13,7 @@ type User struct {
 	FirstName      string    `gorm:"column:first_name"`
 	LastName       string    `gorm:"column:last_name"`
 	Emails         []UserEmail
-	Gender         string         `gorm:"size:1" json:"gender"`
+	Gender         *string        `gorm:"size:1" json:"gender"`
 	Birthdate      *time.Time     `json:"birthdate"`
 	DocumentType   *UserDocType   `gorm:"size:1" validate:"omitempty" json:"document_type"`
 	Document       *string        `gorm:"size:16" validate:"omitempty" json:"document"`

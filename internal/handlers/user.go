@@ -36,7 +36,7 @@ func (u *UserHandler) GetUserByID(c *gin.Context) {
 }
 
 func (u *UserHandler) CreateUser(c *gin.Context) {
-	var user dto.CreateUser
+	var user dto.UserRequest
 	err := c.ShouldBind(&user)
 
 	if err != nil {

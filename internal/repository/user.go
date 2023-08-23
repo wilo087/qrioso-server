@@ -33,7 +33,7 @@ func (ur *UserRepository) GetUserByID(userID uuid.UUID) (*dto.UserResponse, erro
 	return &res, nil
 }
 
-func (ur *UserRepository) CreateUser(u *dto.CreateUser) (*dto.UserResponse, error) {
+func (ur *UserRepository) CreateUser(u *dto.UserRequest) (*dto.UserResponse, error) {
 	user := model.User{}
 	copier.Copy(&user, &u)
 
